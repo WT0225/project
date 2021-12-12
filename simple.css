@@ -1,0 +1,50 @@
+html{
+    margin: 0 auto;
+    width: 1000px;
+    
+}
+
+h1{
+    font-size: 150%;
+    text-align: center;
+    background-color: #00CC66;
+    color: #fff;
+
+}
+
+.uname{
+    width: 70%;
+    margin: 0 auto 20px;
+    font-weight: bold;
+}
+
+.output{
+    border: 1px solid #00CC66;
+    height:300px;
+    overflow:auto;
+    margin: 0 auto 60px;
+    text-align: center;
+    width: 40%;
+
+}
+
+.input_area{
+    display: flex;
+    flex-wrap: wrap;
+    width: 30%;
+    margin: 0 auto 30px;
+    justify-content: center;
+}
+
+.uname{
+    width: 80%;
+    height: 30px;
+    text-align: center;
+    display: block;
+}
+.text{
+    text-align: center;
+    display: block;
+    width: 80%;
+    height: 30px;
+}

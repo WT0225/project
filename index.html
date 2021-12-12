@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Chatアプリ</title>
+<link rel="stylesheet" href="./simple.css">
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+<h1>Gsちゃんねる</h1>
+
+<div>
+    <div id="output" class="output"></div>
+    <div class="input_area">
+        <p class="name_title">名前：</p>
+        <input type="text" id="uname" class="uname">
+        <p class="text-title">文面：</p>
+        <input type="text" id="text" class="text"></input>
+        <button id="send">送信</button>
+        <button id="delete">削除</button>
+    </div>
+    
+</div>
+
+
+
+
+<!--/ コンテンツ表示画面 -->
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+        from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.0/firebase-database.min.js";
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKA6pajsNS4-mL0km0N7LuE_pNUNcq5oc",
+      authDomain: "gsapp-47a4f.firebaseapp.com",
+      projectId: "gsapp-47a4f",
+      storageBucket: "gsapp-47a4f.appspot.com",
+      messagingSenderId: "1085864136312",
+      appId: "1:1085864136312:web:5b382e5742972ab6b2678d"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    const db = getDatabase(app);
+    const dbRef = ref(db, "chat");
+
+    $("#text").on("keydown",function(e){
+        if(e.keyCode==13){
+            const uname = $("#uname").val();
+            const text = $("#text").val();
+            const msg = {
+                uname : uname,
+                text : text
+            };
+            const newPostRef = push(dbRef);
+            set(newPostRef, msg);
+            $("#text").val("");
+        }
+    });
+
+    $("#send").on("click",function(e){
+            const uname = $("#uname").val();
+            const text = $("#text").val();
+            const msg = {
+                uname : uname,
+                text : text
+            };
+            const newPostRef = push(dbRef);
+            set(newPostRef, msg);
+            $("#text").val("");
+    
+    });
+    onChildAdded(dbRef, function(data){
+        const msg = data.val();
+        const key = data.key;
+        let h = "<p>";
+        h += msg.uname;
+        h += "<br>";
+        h += msg.text;
+        h += "</p>";
+        $("#output").append(h);
+    });
+
+    $("#delete").on("click", function(){
+        $("#output").remove();
+        remove(dbRef);
+    })
+    
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
